@@ -1,6 +1,7 @@
 void setData(int n);
 int getData(void);
-extern int data = 0;
+
+int data = 0;
 /**
  * setData - sets the data to be appended to stack.
  *

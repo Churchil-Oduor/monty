@@ -20,7 +20,15 @@ int main(int args, char **argv)
 	char line[512];
 	int line_num, index;
 	stack_t *head;
-	instruction_t instruct[7];
+	instruction_t instruct[] = {
+		{"push", push},
+		{"pall", pall},
+		{"pint", pint},
+		{"pop", pop},
+		{"nop", nop},
+		{"add", add},
+		{"swap", swap},
+	};
 
 	if (args != 2)
 	{
@@ -33,9 +41,7 @@ int main(int args, char **argv)
 		printf("Error: Can't open file %s\n", argv[1]);
 		exit(EXIT_FAILURE);
 	}
-	instruct = {
-		{"push", push}, {"pall", pall}, {"pint", pint},
-		{"pop", pop}, {"nop", nop}, {"add", add}, {"swap", swap}};
+
 	line_num = 1;
 	index = 0;
 	head = malloc(sizeof(head));

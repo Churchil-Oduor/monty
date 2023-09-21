@@ -7,7 +7,8 @@ stack_t *createNode(int data);
  * push - pushes element onto stack.
  *
  * @stack: a node of the stack to be pushed to the stack.
- * @line_number: the number of the line where instruction has been  read beginnning from 1.
+ * @line_number: the number of the line where
+ * instruction has been read beginnning from 1.
  */
 
 void push(stack_t **stack, unsigned int line_number __attribute__((unused)))

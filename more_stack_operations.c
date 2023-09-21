@@ -6,7 +6,8 @@
  * @stack: starting point.
  * @line_number: line where error occurs.
  */
-void nop(stack_t **stack __attribute__((unused)), unsigned int line_number __attribute__((unused)))
+void nop(stack_t **stack __attribute__((unused)),
+		unsigned int line_number __attribute__((unused)))
 {}
 
 
