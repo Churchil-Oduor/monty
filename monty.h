@@ -33,4 +33,17 @@ typedef struct instruction_s
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
+int handleInstruction(char *instruction);
+void push(stack_t **stack, unsigned int line_number);
+void pall(stack_t **stack, unsigned int line_number);
+void pint(stack_t **stack, unsigned int line_number);
+void pop(stack_t **stack, unsigned int line_number);
+void nop(stack_t **stack, unsigned int line_number);
+void add(stack_t **stack, unsigned int line_number);
+void swap(stack_t **stack, unsigned int line_number);
+stack_t *createNode(int data);
+void setData(int n);
+int getData(void);
+char **tokenizer(char *instruction);
+void nothing(stack_t **stack, unsigned int line_number);
 #endif
