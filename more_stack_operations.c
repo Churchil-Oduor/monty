@@ -1,6 +1,7 @@
 #include "monty.h"
 #include <stdlib.h>
-#include <stdio.h>
+
+
 /**
  * nop - does not do anything.
  * @stack: starting point.

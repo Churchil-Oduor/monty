@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
@@ -17,18 +16,7 @@
 int main(int args, char **argv)
 {
 	FILE *file;
-	char line[512];
-	int line_num, index;
 	stack_t *head;
-	instruction_t instruct[] = {
-		{"push", push},
-		{"pall", pall},
-		{"pint", pint},
-		{"pop", pop},
-		{"nop", nop},
-		{"add", add},
-		{"swap", swap},
-	};
 
 	if (args != 2)
 	{
@@ -42,19 +30,39 @@ int main(int args, char **argv)
 		exit(EXIT_FAILURE);
 	}
 
-	line_num = 1;
-	index = 0;
 	head = malloc(sizeof(head));
 	if (head == NULL)
 		exit(EXIT_FAILURE);
 	head->n = -1;
 	head->prev = NULL;
 	head->next = NULL;
+	process(file, head);
+	return (0);
+}
+
+
+/**
+ * process - handles the processing to reduce clutter in function main.
+ *
+ * @file: pointer to file.
+ * @head: entru point of the stack.
+ */
+
+void process(FILE *file, stack_t *head)
+{
+	char line[512];
+	int line_num, index;
+	instruction_t instruct[] = {
+		{"push", push}, {"pall", pall}, {"pint", pint}, {"pop", pop},
+		{"nop", nop}, {"add", add}, {"swap", swap},
+	};
+	line_num = 1;
+	index = 0;
 	while (fgets(line, sizeof(line), file) != NULL)
 	{
 		char **response;
 
-		if (line[0] != '\n' /*|| (line[0] != '\r' && line[1] != '\n')*/)
+		if (line[0] != '\n')
 		{
 			response = tokenizer(line);
 			index = handleInstruction(response[0]);
@@ -79,9 +87,7 @@ int main(int args, char **argv)
 		line_num++;
 	}
 	fclose(file);
-	return (0);
 }
-
 /**
  * tokenizer - tokenizes the strings to obtain the instruction.
  * @instruction: instruction to be tokenized.
