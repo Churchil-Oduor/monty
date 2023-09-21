@@ -58,9 +58,7 @@ stack_t *createNode(int data)
 	node = malloc(sizeof(stack_t));
 	if (node == NULL)
 	{
-		/**
-		 * appropriate stderror msg required using fprintf
-		 */
+		fprintf(stderr, "Error: malloc failed");
 		exit(EXIT_FAILURE);
 	}
 
@@ -82,7 +80,8 @@ void pint(stack_t **stack, unsigned int line_number)
 		printf("%d\n", ((*stack)->next)->n);
 	else
 	{
-		printf("L%d: can't pint, stack empty\n", line_number);
+		fprintf(stderr, "L%d: can't pint, stack empty\n", line_number);
+		exit(EXIT_FAILURE);
 	}
 }
 
@@ -111,5 +110,8 @@ void pop(stack_t **stack, unsigned int line_number)
 		}
 	}
 	else
-		printf("L%d: can't pop an empty stack\n", line_number);
+	{
+		fprintf(stderr, "L%d: can't pop an empty stack\n", line_number);
+		exit(EXIT_FAILURE);
+	}
 }

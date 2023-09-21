@@ -32,13 +32,13 @@ int main(int args, char **argv)
 
 	if (args != 2)
 	{
-		printf("USAGE: monty file\n");
+		fprintf(stderr, "USAGE: monty file\n");
 		exit(EXIT_FAILURE);
 	}
 	file = fopen(argv[1], "r");
 	if (file == NULL)
 	{
-		printf("Error: Can't open file %s\n", argv[1]);
+		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
 		exit(EXIT_FAILURE);
 	}
 
@@ -58,6 +58,19 @@ int main(int args, char **argv)
 		{
 			response = tokenizer(line);
 			index = handleInstruction(response[0]);
+			if (index == -1)
+			{
+				fprintf(stderr, "L%d: unknown instruction %s\n", line_num, response[0]);
+				exit(EXIT_FAILURE);
+			}
+			if (index == 0)
+			{
+				if (response[1] == 0)
+				{
+					fprintf(stderr, "L%d: usage: push integer\n", line_num);
+					exit(EXIT_FAILURE);
+				}
+			}
 			if (index == 0)
 				setData(atoi(response[1]));
 			if (index != -1)
@@ -80,7 +93,7 @@ char **tokenizer(char *instruction)
 	char *token, **result;
 	int count;
 
-	result = malloc(sizeof(char **) * 3);
+	result = malloc(sizeof(char **) * 1024);
 	count = 0;
 
 	token = strtok(instruction, " \n");
@@ -121,6 +134,8 @@ int handleInstruction(char *instruction)
 		return (4);
 	else if (strcmp(instruction, "add") == 0)
 		return (5);
-	else
+	else if (strcmp(instruction, "swap") == 0)
 		return (6);
+	else
+		return (-1);
 }

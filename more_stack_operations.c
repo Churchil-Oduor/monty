@@ -50,16 +50,13 @@ void add(stack_t **stack, unsigned int line_number)
 void swap(stack_t **stack, unsigned int line_number)
 {
 	stack_t *current;
-	int temp;
 
 	current = (*stack)->next;
-	temp = 0;
-
 	if (current != NULL && current->next != NULL)
 	{
-		temp = current->n + (current->next)->n;
-		current->n = temp - (current->next)->n;
-		(current->next)->n = temp - current->n;
+		current->n = (current->next)->n + current->n;
+		(current->next)->n = current->n - (current->next)->n;
+		current->n = current->n - (current->next)->n;
 	}
 	else
 	{
