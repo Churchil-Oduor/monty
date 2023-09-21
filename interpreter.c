@@ -54,10 +54,10 @@ void process(FILE *file, stack_t *head)
 	int line_num, index;
 	instruction_t instruct[] = {
 		{"push", push}, {"pall", pall}, {"pint", pint}, {"pop", pop},
-		{"nop", nop}, {"add", add}, {"swap", swap},
+		{"nop", nop}, {"add", add}, {"swap", swap}, {"sub", sub},
+		{"div", _div}, {"mul", mul}, {"mod", mod}
 	};
 	line_num = 1;
-	index = 0;
 	while (fgets(line, sizeof(line), file) != NULL)
 	{
 		char **response;
@@ -65,7 +65,10 @@ void process(FILE *file, stack_t *head)
 		if (line[0] != '\n')
 		{
 			response = tokenizer(line);
-			index = handleInstruction(response[0]);
+			if (strcmp(response[0], "#") == 0)
+				index = 4;
+			else
+				index = handleInstruction(response[0]);
 			if (index == -1)
 			{
 				fprintf(stderr, "L%d: unknown instruction %s\n", line_num, response[0]);
@@ -142,6 +145,14 @@ int handleInstruction(char *instruction)
 		return (5);
 	else if (strcmp(instruction, "swap") == 0)
 		return (6);
+	else if (strcmp(instruction, "sub") == 0)
+		return (7);
+	else if (strcmp(instruction, "div") == 0)
+		return (8);
+	else if (strcmp(instruction, "mul") == 0)
+		return (9);
+	else if (strcmp(instruction, "mod") == 0)
+		return (10);
 	else
 		return (-1);
 }

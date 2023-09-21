@@ -65,3 +65,33 @@ void swap(stack_t **stack, unsigned int line_number)
 		exit(EXIT_FAILURE);
 	}
 }
+
+
+/**
+ * sub -  subtracts the top element of the stack
+ * from the second top element of the stack.
+ *
+ * @stack: entry point of the program.
+ * @line_number: point where the stack encounters an error.
+ */
+
+void sub(stack_t **stack, unsigned int line_number)
+{
+	stack_t *current;
+	int res;
+
+	current = (*stack)->next;
+	res = 0;
+	if (current != NULL && current->next != NULL)
+	{
+		res = (current->next)->n - current->n;
+		(*stack)->next = (current->next);
+		(current->next)->prev = (*stack);
+		(current->next)->n = res;
+	}
+	else
+	{
+		fprintf(stderr, "L%d: can't sub, stack too short\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+}
